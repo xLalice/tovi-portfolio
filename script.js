@@ -11,11 +11,47 @@ function hideFooter(shouldHide) {
     footer.style.display = shouldHide ? "none" : "flex";
 }
 
-function showHome(){
+function showSection(selector) {
+    document.querySelectorAll("nav ul li").forEach(function (tab) {
+        tab.classList.remove("activeTab");
+    });
+
+    document.querySelector("button").classList.remove("activeTab");
+    document.querySelector(selector).classList.add("activeTab");
+}
+
+function showHome() {
     clearContent();
-    let img = document.createElement("img");
-    img.src = "./Change.jpg";
-    section.appendChild(img);
+    let content = `
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <div class="numbertext">1 / 3</div>
+                <img src="./Change.jpg">
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">2 / 3</div>
+                <img src="./works/4.jpeg">
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">3 / 3</div>
+                <img src="./works/14.jpeg">
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    `;
+    section.innerHTML = content;
+    showSection("#home");
 }
 
 function showWorks() {
@@ -29,6 +65,7 @@ function showWorks() {
     hideFooter(false);
     worksDiv.appendChild(list);
     section.appendChild(worksDiv);
+    showSection("#works");
 }
 
 function showSketches() {
@@ -42,6 +79,7 @@ function showSketches() {
     hideFooter(false);
     sketchDiv.appendChild(list);
     section.appendChild(sketchDiv);
+    showSection("button[class='dropbtn']");
 }
 
 function show3dModels() {
@@ -55,6 +93,7 @@ function show3dModels() {
     hideFooter(false);
     div.appendChild(list);
     section.appendChild(div);
+    showSection("#more");
 }
 
 function showAbout() {
@@ -73,6 +112,7 @@ function showAbout() {
     hideFooter(true);
     div.innerHTML = content;
     section.appendChild(div);
+    showSection("#about");
 }
 
 function showContact() {
@@ -94,6 +134,7 @@ function showContact() {
     hideFooter(true);
     div.innerHTML = content;
     section.appendChild(div);
+    showSection("#contact");
 }
 
 document.querySelector("#works").addEventListener("click", showWorks);
